@@ -1,0 +1,14 @@
+@import 'common.scss';
+
+body{
+  position: relative;
+  background: #1a0532 no-repeat;
+  background-size: 20rem 200%;
+  background-position-y: 0;
+  background-position-x: center;
+}
+
+div.lottery-page{
+  position: relative;
+  height:100%;
+}
