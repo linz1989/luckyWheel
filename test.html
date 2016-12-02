@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #bg{
+            width:662px;
+            height:662px;
+            border:1px solid #f66;
+        }
+    </style>
+    <script type="text/javascript">
+        function init() {
+            var wheelCtx = document.querySelector("#bg").getContext("2d")
+            var pi = Math.PI
+
+            wheelCtx.strokeStyle = '#ffb534'
+            wheelCtx.lineWidth = 8
+            wheelCtx.arc(331, 331, 323, 0, 2 * pi)
+            wheelCtx.stroke()
+
+            wheelCtx.beginPath()
+            wheelCtx.strokeStyle = '#de910d'
+            wheelCtx.fillStyle = '#f8d300'
+            wheelCtx.lineWidth = 1
+            wheelCtx.arc(331, 331, 319, 0, 2 * pi)
+            wheelCtx.stroke()
+            wheelCtx.fill()
+
+            wheelCtx.beginPath()
+            wheelCtx.strokeStyle = '#d28500'
+            wheelCtx.lineWidth = 11
+            wheelCtx.arc(331, 331, 289, 0, 2 * pi)
+            wheelCtx.stroke()
+
+            // 绘制白点
+            var perDeg = 360 / 18 * (pi / 180)
+            var smallRadius = 6
+            var bigRadius = 8
+            var dotRadius = 307
+            var currDeg = pi / 2
+            wheelCtx.fillStyle = '#fff'
+            for (var k = 0; k < 9; k++) {
+                wheelCtx.beginPath()
+                wheelCtx.arc(331+ Math.cos(currDeg) * dotRadius, 331 - Math.sin(currDeg) * dotRadius, smallRadius, 0, 2 * pi)
+                wheelCtx.fill()
+                currDeg += perDeg
+                wheelCtx.beginPath()
+                wheelCtx.arc(331+ Math.cos(currDeg) * dotRadius, 331 - Math.sin(currDeg) * dotRadius, bigRadius, 0, 2 * pi)
+                wheelCtx.fill()
+                currDeg += perDeg
+            }
+
+            // style list
+            var pieStyleArr = [{color: '#b92401', bgColor: '#fff6e5'},{color: '#590202', bgColor: '#ffd488'},{color: '#b92401', bgColor: '#fee0d5'}]
+            var giftList = ['移动电源', '100元现金券', '谢谢惠顾', 'iphone 6s', '50元按摩券', '再来一次']
+            perDeg = 360 / giftList.length * (pi / 180)
+            var pieRadius = 283
+            currDeg = pi / 2
+            var pieStyle
+            wheelCtx.font = 'normal 44px 微软雅黑'
+            var pieLineWidth = ( 2 * pi * pieRadius * 0.667 ) / giftList.length * 0.6
+            console.log('pieLineWidth：' + pieLineWidth)
+            wheelCtx.textAlign = 'center'
+            wheelCtx.textBaseline = 'middle'
+
+            for (k = 0; k < giftList.length; k++) {
+                wheelCtx.beginPath()
+                wheelCtx.moveTo(331, 331)
+                wheelCtx.arc(331, 331, pieRadius, currDeg, currDeg + perDeg)
+                wheelCtx.lineTo(331, 331)
+                pieStyle = pieStyleArr[k % 3]
+                wheelCtx.fillStyle = pieStyle.bgColor
+                wheelCtx.fill()
+                wheelCtx.closePath()
+
+                // 写入文本
+                wheelCtx.fillStyle = pieStyle.color
+                if (wheelCtx.measureText(giftList[k]).width > pieLineWidth) {
+                    console.log('需要换行' + giftList[k])
+                }
+
+                // 最多两行
+                currDeg += perDeg
+            }
+        }
+    </script>
+</head>
+<body onload="init()">
+    <canvas id="bg" width="662" height="662"></canvas>
+</body>
+</html>

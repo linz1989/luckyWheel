@@ -14,7 +14,7 @@ html{
     width:100%;
     min-height:100%;
     overflow: hidden;
-    background-color: #1a0532;
+    background-color: #f66;
 }
 body{
     position: relative;
@@ -24,7 +24,7 @@ body{
     height:100%;
     max-width: 20rem;
     color: #b0b0b0;
-    background-color: #fff;
+    background-color: #f66;
     font: 1rem/1.5rem "Microsoft Yahei",Arial;
     overflow: hidden;
     -webkit-font-smoothing: antialiased;
@@ -32,15 +32,12 @@ body{
 button {
     outline: none;
 }
-ol, ul {
+ul {
     margin: 0;
     padding: 0;
 }
-ol, ul, li {
+ul, li {
     list-style: none;
-}
-i {
-    font-style: normal;
 }
 a {
     outline: none;
