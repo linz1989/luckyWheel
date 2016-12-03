@@ -4,15 +4,14 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, img, ol, ul, li, label, can
   line-height: inherit;
   margin: 0;
   padding: 0;
-  font-weight: normal;
+  font-weight: inherit;
   vertical-align: baseline;
   box-sizing: border-box; }
 
 html {
-  height: 100%;
   width: 100%;
   min-height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
   background-color: #f66; }
 
 body {
@@ -20,12 +19,11 @@ body {
   margin: 0 auto;
   padding: 0;
   width: 20rem;
-  height: 100%;
   max-width: 20rem;
   color: #b0b0b0;
   background-color: #f66;
   font: 1rem/1.5rem "Microsoft Yahei",Arial;
-  overflow: hidden;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased; }
 
 button {
@@ -237,7 +235,8 @@ div.pop-modal {
 
 .lottery-page {
   position: relative;
-  z-index: 0; }
+  z-index: 0;
+  padding: 1.083rem 0 1.1389rem; }
 
 .light-bg {
   position: absolute;
@@ -251,7 +250,6 @@ div.pop-modal {
 
 .page-title {
   height: 4.972rem;
-  margin-top: 1.083rem;
   background-size: 16.528rem 4.972rem;
   background-image: url("../images/2.png");
   background-repeat: no-repeat;
@@ -294,10 +292,19 @@ div.pop-modal {
   margin-top: 1.361rem;
   z-index: 0; }
   .wheel > canvas {
-    display: block;
-    width: 18.388rem;
-    height: 100%;
-    margin: 0 auto; }
+    display: block; }
+    .wheel > canvas:nth-of-type(1) {
+      width: 18.388rem;
+      height: 100%;
+      margin: 0 auto; }
+    .wheel > canvas:nth-of-type(2) {
+      position: absolute;
+      width: 4.3889rem;
+      height: 5.8333rem;
+      left: 50%;
+      top: 50%;
+      margin-left: -2.19445rem;
+      margin-top: -2.91665rem; }
   .wheel:before {
     z-index: -1;
     content: "";
@@ -307,3 +314,60 @@ div.pop-modal {
     background-size: 20rem 9.667rem;
     background-image: url("../images/3.png");
     background-repeat: no-repeat; }
+  .wheel:after {
+    content: "";
+    position: absolute;
+    width: 8.611rem;
+    height: 0.444rem;
+    left: 50%;
+    bottom: -1.4167rem;
+    margin-left: -4.3055rem;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50% / 50%; }
+
+.list-wrap {
+  background: #fff;
+  margin: 0.8056rem 0.583rem 0;
+  padding: 0.9444rem 1.1389rem;
+  border-radius: 4px; }
+  .list-wrap > h3 {
+    position: relative;
+    text-align: center;
+    line-height: 1.0;
+    font-weight: bold;
+    color: #f66;
+    font-size: 1.333rem; }
+    .list-wrap > h3 > span {
+      color: #fea70e; }
+    .list-wrap > h3:before, .list-wrap > h3:after {
+      content: "";
+      position: absolute;
+      width: 4.6389rem;
+      height: 1px;
+      background: #f66;
+      top: 50%; }
+    .list-wrap > h3:before {
+      left: 0; }
+    .list-wrap > h3:after {
+      right: 0; }
+
+.winning-list {
+  margin-top: 2.3056rem; }
+  .winning-list > ul > li {
+    padding: 0.4rem 0;
+    border-bottom: 1px dashed #eee; }
+    .winning-list > ul > li > div:nth-of-type(1) {
+      font-size: 0.833rem;
+      color: #999; }
+    .winning-list > ul > li > div:nth-of-type(2) {
+      font-size: 0.888rem;
+      color: #616161; }
+    .winning-list > ul > li:last-child {
+      border-bottom-width: 0; }
+
+.desc-list > ul {
+  padding-top: 0.7rem; }
+  .desc-list > ul > li {
+    color: #616161;
+    font-size: 0.8333rem;
+    line-height: 2; }

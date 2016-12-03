@@ -5,15 +5,14 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p, a,img, ol, ul, li, label,canva
     line-height: inherit;
     margin: 0;
     padding: 0;
-    font-weight: normal;
+    font-weight: inherit;
     vertical-align: baseline;
     box-sizing: border-box;
 }
 html{
-    height:100%;
     width:100%;
     min-height:100%;
-    overflow: hidden;
+    overflow-x: hidden;
     background-color: #f66;
 }
 body{
@@ -21,12 +20,11 @@ body{
     margin:0 auto;
     padding:0;
     width: 20rem;
-    height:100%;
     max-width: 20rem;
     color: #b0b0b0;
     background-color: #f66;
     font: 1rem/1.5rem "Microsoft Yahei",Arial;
-    overflow: hidden;
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
 }
 button {

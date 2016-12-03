@@ -3,6 +3,7 @@
 .lottery-page{
   position: relative;
   z-index:0;
+  padding:1.083rem 0 1.1389rem;
 }
 
 .light-bg{
@@ -18,7 +19,6 @@
 
 .page-title{
   height:4.972rem;
-  margin-top:1.083rem;
   @include img('../images/2.png',16.528rem 4.972rem);
   background-position: center center;
 }
@@ -67,9 +67,20 @@
   z-index:0;
   >canvas{
     display: block;
-    width:18.388rem;
-    height:100%;
-    margin:0 auto;
+    &:nth-of-type(1){
+      width:18.388rem;
+      height:100%;
+      margin:0 auto;
+    }
+    &:nth-of-type(2){
+      position: absolute;
+      width: 4.3889rem;
+      height:5.8333rem;
+      left: 50%;
+      top:50%;
+      margin-left:-2.19445rem;
+      margin-top:-2.91665rem;
+    }
   }
   &:before{
     z-index:-1;
@@ -78,5 +89,82 @@
     width:20rem;
     height:9.667rem;
     @include img("../images/3.png", 20rem 9.667rem);
+  }
+  &:after{
+    content: "";
+    position: absolute;
+    width:8.611rem;
+    height:0.444rem;
+    left:50%;
+    bottom: -1.4167rem;
+    margin-left:-4.3055rem;
+    background: rgba(0,0,0,0.4);
+    border-radius: 50% / 50%;
+  }
+}
+
+.list-wrap{
+  background: #fff;
+  margin: 0.8056rem 0.583rem 0;
+  padding: 0.9444rem 1.1389rem;
+  border-radius: 4px;
+  >h3{
+    position: relative;
+    text-align: center;
+    line-height: 1.0;
+    font-weight: bold;
+    color:#f66;
+    font-size:1.333rem;
+    >span{
+      color:#fea70e;
+    }
+    &:before,&:after{
+      content: "";
+      position: absolute;
+      width:4.6389rem;
+      height:1px;
+      background: #f66;
+      top:50%;
+    }
+    &:before{
+      left:0;
+    }
+    &:after{
+      right:0;
+    }
+  }
+}
+
+.winning-list{
+  margin-top:2.3056rem;
+  >ul{
+    >li{
+      padding:0.4rem 0;
+      border-bottom:1px dashed #eee;
+      >div{
+        &:nth-of-type(1){
+          font-size: 0.833rem;
+          color:#999;
+        }
+        &:nth-of-type(2){
+          font-size: 0.888rem;
+          color:#616161;
+        }
+      }
+      &:last-child{
+        border-bottom-width:0;
+      }
+    }
+  }
+}
+
+.desc-list{
+  >ul{
+    padding-top:0.7rem;
+    >li{
+      color:#616161;
+      font-size:0.8333rem;
+      line-height: 2;
+    }
   }
 }

@@ -54,16 +54,22 @@
 
             // style list
             var pieStyleArr = [{color: '#b92401', bgColor: '#fff6e5'},{color: '#590202', bgColor: '#ffd488'},{color: '#b92401', bgColor: '#fee0d5'}]
-            var giftList = ['移动电源', '100元现金券', '谢谢惠顾', 'iphone 6s', '50元按摩券', '再来一次']
+            var giftList = ['移动', '¥100元现金券', '谢谢惠顾', 'iphone 6s', '50元泰式按摩券']
             perDeg = 360 / giftList.length * (pi / 180)
             var pieRadius = 283
             currDeg = pi / 2
             var pieStyle
-            wheelCtx.font = 'normal 44px 微软雅黑'
-            var pieLineWidth = ( 2 * pi * pieRadius * 0.667 ) / giftList.length * 0.6
+            wheelCtx.font = 'bold 44px 微软雅黑'
+            var pieLineWidth = ( 2 * pi * pieRadius * 0.58 ) / giftList.length
             console.log('pieLineWidth：' + pieLineWidth)
             wheelCtx.textAlign = 'center'
             wheelCtx.textBaseline = 'middle'
+
+            var giftName
+            var topText
+            var bottomText
+            var splitTextPos
+            var splitArr
 
             for (k = 0; k < giftList.length; k++) {
                 wheelCtx.beginPath()
@@ -77,13 +83,53 @@
 
                 // 写入文本
                 wheelCtx.fillStyle = pieStyle.color
-                if (wheelCtx.measureText(giftList[k]).width > pieLineWidth) {
-                    console.log('需要换行' + giftList[k])
+                wheelCtx.save()
+
+                wheelCtx.translate(331, 331)
+                console.log('旋转：' + (currDeg + perDeg/2))
+                wheelCtx.rotate(currDeg + perDeg/2 + pi / 2)
+
+                giftName = giftList[k]
+                if (wheelCtx.measureText(giftName).width > pieLineWidth) {
+                    //处理两行字的情况
+                    splitArr = giftName.split(' ')
+                    if (splitArr.length == 2) { // 有空格间隔
+                        topText = splitArr[0]
+                        bottomText = splitArr[1]
+                    } else {
+                        splitTextPos = getTextSplitPos(giftName, wheelCtx, pieLineWidth)
+                        topText = giftName.substr(0, splitTextPos)
+                        bottomText = giftName.substr(splitTextPos)
+                    }
+                    console.log('topText：' + topText + 'bottomText：' + bottomText)
+                    wheelCtx.fillText(topText, 0, -pieRadius * 0.72, pieLineWidth)
+                    wheelCtx.fillText(bottomText, 0, -pieRadius * 0.52, pieLineWidth)
+                } else {
+                    // 一行字直接绘制在中心点
+                    wheelCtx.fillText(giftName, 0, -pieRadius * 0.65)
                 }
 
-                // 最多两行
+                wheelCtx.restore()
                 currDeg += perDeg
             }
+        }
+
+        function getTextSplitPos(text, ctx, lineWidth){ // 计算出文本换行的分割点
+            if (text.length <= 3) {
+                return text.length
+            }
+            if(/^[\u4E00-\u9FFF]+$/.test(text)) { // 文本都是汉字，从中间分隔
+                return Math.ceil(text.length / 2)
+            } else { // 已经字宽计算出分隔点
+                var str = text.substr(0, 3)
+                for (var i = 3; i < text.length; i++) {
+                    str = str + text.charAt(i)
+                    if (ctx.measureText(str).width > lineWidth) {
+                        return i + 1
+                    }
+                }
+            }
+            return text.length
         }
     </script>
 </head>
