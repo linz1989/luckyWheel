@@ -4,7 +4,7 @@
 
 div#app-tip{
   display: none;
-  position: absolute;
+  position: fixed;
   z-index: 3;
   top: 60%;
   opacity: 0;
@@ -110,9 +110,11 @@ div.pop-modal{
     opacity: 1;
     @include scale(1,1);
   }
-  &>div.center-wrap{
+  >div.center-wrap{
     position: absolute;
-    top:50%;
+    top:42%;
     left:50%;
+    width:17.077rem;
+    transform: translate(-50%,-50%);
   }
 }

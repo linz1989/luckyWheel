@@ -42,7 +42,7 @@
             <div class="list-wrap desc-list">
                 <h3><span>活</span>动说明</h3>
                 <ul>
-                    <li>1、活动时间2016-11-11至2016-12-12</li>
+                    <li>1、活动时间2016-11-11至2016-12-12动时间2016-11-11至2016-12-12</li>
                     <li>2、分享可获取一次抽奖机会</li>
                     <li>3、分享可获取一次抽奖机会</li>
                     <li>4、分享可获取一次抽奖机会</li>
@@ -50,12 +50,71 @@
             </div>
         </template>
         <div v-if="loadError && errorId" class="page-error">404<br/><span>您访问的页面不存在！</span></div>
+        <!-- 中奖 实物弹窗 -->
+        <div class="pop-modal winning material">
+            <div class="center-wrap">
+                <div class="top-wrap">
+                    <h3>中奖啦！</h3>
+                    <h4>恭喜您获得：</h4>
+                    <h2>iphone 6s</h2>
+                    <div class="btn"></div>
+                </div>
+                <split-line type="red"></split-line>
+                <ul class="act-desc">
+                    <li>1、您的兑换码为：11111111</li>
+                    <li>2、您的兑换码为：<a>立即查看</a></li>
+                    <li>3、您的兑换码为：11111111</li>
+                    <li>4、您的兑换码为：11111111</li>
+                </ul>
+                <div class="close-btn">&times;</div>
+            </div>
+        </div>
+        <!-- 中奖 优惠券 -->
+        <div class="pop-modal winning coupon">
+            <div class="center-wrap">
+                <div class="top-wrap">
+                    <h3>中奖啦！</h3>
+                    <h4>恭喜您获得：</h4>
+                    <div class="coupon">
+                        <div>198元</div>
+                        <div>满100元可用</div>
+                        <div>券有效期：2015-11-11至2016-12-12</div>
+                        <div>现金券</div>
+                    </div>
+                    <div class="btn"></div>
+                </div>
+                <split-line type="red"></split-line>
+                <ul class="act-desc">
+                    <li>1、您的兑换码为：11111111</li>
+                    <li>2、您的兑换码为：<a>立即查看</a></li>
+                    <li>3、您的兑换码为：11111111</li>
+                    <li>4、您的兑换码为：11111111</li>
+                </ul>
+                <div class="close-btn">&times;</div>
+            </div>
+        </div>
+        <!-- 中奖 在抽一次 -->
+        <div class="pop-modal winning again active">
+            <div class="center-wrap">
+                <div class="top-wrap">
+                    <h3>中奖啦！</h3>
+                    <h4>恭喜您获得：</h4>
+                    <h2>再抽一次的机会</h2>
+                    <div class="btn"></div>
+                </div>
+                <div class="close-btn">&times;</div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
     import { Global } from './libs/global'
+    import SplitLine from './components/splitLine'
 
     module.exports = {
+        components: {
+            'split-line': SplitLine
+        },
         data: function () {
             return {
                 loading: false,
@@ -160,7 +219,7 @@
                 var pieStyle
                 wheelCtx.font = 'bold 44px 微软雅黑'
                 var pieLineWidth = (2 * pi * pieRadius * 0.58) / giftList.length
-                console.log('pieLineWidth：' + pieLineWidth)
+                // console.log('pieLineWidth：' + pieLineWidth)
                 wheelCtx.textAlign = 'center'
                 wheelCtx.textBaseline = 'middle'
 
@@ -185,7 +244,7 @@
                     wheelCtx.save()
 
                     wheelCtx.translate(331, 331)
-                    console.log('旋转：' + (currDeg + perDeg / 2))
+                    // console.log('旋转：' + (currDeg + perDeg / 2))
                     wheelCtx.rotate(currDeg + perDeg / 2 + pi / 2)
 
                     giftName = giftList[k]
@@ -199,7 +258,7 @@
                             topText = giftName.substr(0, splitTextPos)
                             bottomText = giftName.substr(splitTextPos)
                         }
-                        console.log('topText：' + topText + 'bottomText：' + bottomText)
+                        // console.log('topText：' + topText + 'bottomText：' + bottomText)
                         wheelCtx.fillText(topText, 0, -pieRadius * 0.72, pieLineWidth)
                         wheelCtx.fillText(bottomText, 0, -pieRadius * 0.52, pieLineWidth)
                     } else {
