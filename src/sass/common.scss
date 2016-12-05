@@ -113,8 +113,6 @@ div.pop-modal{
   >div.center-wrap{
     position: absolute;
     top:42%;
-    left:50%;
-    width:17.077rem;
-    transform: translate(-50%,-50%);
+    transform: translateY(-50%);
   }
 }

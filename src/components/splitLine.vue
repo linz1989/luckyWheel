@@ -27,7 +27,7 @@
 
                 ctx.beginPath()
                 ctx.lineWidth = 3
-                ctx.strokeStyle = '#f66'
+                ctx.strokeStyle = that.type == 'red' ? '#f66' : '#fff'
                 ctx.moveTo(0, 2)
                 ctx.lineTo(615, 2)
                 ctx.closePath()

@@ -58,6 +58,7 @@ exports.Global = {
         _this.winScale = _this.winWidth / _this.baseWidth
         htmlEl.style.fontSize = _this.winScale * 16 + 'px'
         htmlEl.style.backgroundColor = '#f0f0f0'
+        document.querySelector('body').style.minHeight = _this.winHeight + 'px'
     },
     tipShow: function (content, time) {
         var _tip = this.tip

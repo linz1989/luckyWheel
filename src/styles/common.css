@@ -11,8 +11,7 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, img, ol, ul, li, label, can
 html {
   width: 100%;
   min-height: 100%;
-  overflow-x: hidden;
-  background-color: #f66; }
+  overflow-x: hidden; }
 
 body {
   position: relative;
@@ -20,6 +19,7 @@ body {
   padding: 0;
   width: 20rem;
   max-width: 20rem;
+  min-height: 100%;
   color: #b0b0b0;
   background-color: #f66;
   font: 1rem/1.5rem "Microsoft Yahei",Arial;
@@ -48,7 +48,7 @@ a {
   clear: both; }
 
 .spinner {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   width: 40px;
@@ -231,7 +231,5 @@ div.pop-modal {
   div.pop-modal > div.center-wrap {
     position: absolute;
     top: 42%;
-    left: 50%;
-    width: 17.077rem;
-    -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%); }
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%); }

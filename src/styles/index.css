@@ -12,8 +12,7 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, img, ol, ul, li, label, can
 html {
   width: 100%;
   min-height: 100%;
-  overflow-x: hidden;
-  background-color: #f66; }
+  overflow-x: hidden; }
 
 body {
   position: relative;
@@ -21,6 +20,7 @@ body {
   padding: 0;
   width: 20rem;
   max-width: 20rem;
+  min-height: 100%;
   color: #b0b0b0;
   background-color: #f66;
   font: 1rem/1.5rem "Microsoft Yahei",Arial;
@@ -49,7 +49,7 @@ a {
   clear: both; }
 
 .spinner {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   width: 40px;
@@ -232,10 +232,8 @@ div.pop-modal {
   div.pop-modal > div.center-wrap {
     position: absolute;
     top: 42%;
-    left: 50%;
-    width: 17.077rem;
-    -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%); }
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%); }
 
 .lottery-page {
   position: relative;
@@ -300,7 +298,13 @@ div.pop-modal {
     .wheel > canvas:nth-of-type(1) {
       width: 18.388rem;
       height: 100%;
-      margin: 0 auto; }
+      margin: 0 auto;
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+      -webkit-transition: -webkit-transform 5s ease-out;
+      transition: -webkit-transform 5s ease-out;
+      transition: transform 5s ease-out;
+      transition: transform 5s ease-out, -webkit-transform 5s ease-out; }
     .wheel > canvas:nth-of-type(2) {
       position: absolute;
       width: 4.3889rem;
@@ -376,6 +380,41 @@ div.pop-modal {
     font-size: 0.8333rem;
     padding: 0.1rem 0; }
 
+.pop-modal .top-wrap {
+  padding-top: 10.556rem;
+  background-clip: content-box;
+  text-align: center; }
+  .pop-modal .top-wrap:after {
+    content: "";
+    display: block;
+    height: 0.5rem; }
+  .pop-modal .top-wrap:before {
+    content: "";
+    display: block;
+    width: 20rem;
+    height: 10.556rem;
+    margin-top: -10rem;
+    background-size: 20rem 10.556rem;
+    background-repeat: no-repeat; }
+  .pop-modal .top-wrap > h3 {
+    margin-top: -4rem;
+    font-size: 1.167rem; }
+  .pop-modal .top-wrap > h4 {
+    margin: 0.5rem 0 0.3rem;
+    font-size: 0.833rem; }
+  .pop-modal .top-wrap > div.btn {
+    height: 2.389rem;
+    width: 12.361rem;
+    background: #cb274e;
+    border-radius: 2rem;
+    margin: 0 auto; }
+    .pop-modal .top-wrap > div.btn:after {
+      display: block;
+      height: 2.222rem;
+      line-height: 2.222rem;
+      border-radius: 2rem;
+      letter-spacing: 2px; }
+
 .pop-modal .split-line {
   display: block;
   width: 100%;
@@ -396,54 +435,29 @@ div.pop-modal {
   color: #f66;
   font-size: 1.3rem; }
 
-.pop-modal.winning div.top-wrap {
-  background: #f66;
-  text-align: center;
-  min-height: 5rem;
-  padding-top: 10.556rem;
-  background-clip: content-box; }
-  .pop-modal.winning div.top-wrap:before {
-    content: "";
-    display: block;
-    width: 20rem;
-    height: 10.556rem;
-    margin-left: -1.55rem;
-    margin-top: -10rem;
-    background-size: 20rem 10.556rem;
-    background-image: url("../images/4.png");
-    background-repeat: no-repeat; }
-  .pop-modal.winning div.top-wrap:after {
-    content: "";
-    display: block;
-    height: 0.5rem; }
-  .pop-modal.winning div.top-wrap > h3, .pop-modal.winning div.top-wrap > h4 {
+.pop-modal.winning > div.center-wrap {
+  width: 17.083333rem;
+  left: 1.52778rem; }
+
+.pop-modal.winning .top-wrap {
+  background-color: #f66; }
+  .pop-modal.winning .top-wrap:before {
+    margin-left: -1.52778rem;
+    background-image: url("../images/4.png"); }
+  .pop-modal.winning .top-wrap > h3, .pop-modal.winning .top-wrap > h4 {
     color: #fff; }
-  .pop-modal.winning div.top-wrap > h3 {
-    margin-top: -4rem;
-    font-size: 1.167rem; }
-  .pop-modal.winning div.top-wrap > h4 {
-    margin: 0.5rem 0 0.3rem;
-    font-size: 0.833rem; }
-  .pop-modal.winning div.top-wrap > h2 {
+  .pop-modal.winning .top-wrap > h2 {
     color: #fdf327;
     font-size: 1.333rem;
     text-shadow: 2px -2px rgba(0, 0, 0, 0.2); }
-  .pop-modal.winning div.top-wrap > div.btn {
-    height: 2.389rem;
-    width: 12.361rem;
-    background: #cb274e;
-    border-radius: 2rem;
-    margin: 1.22rem auto 0; }
-    .pop-modal.winning div.top-wrap > div.btn:after {
+  .pop-modal.winning .top-wrap > div.btn {
+    margin-top: 1.22rem; }
+    .pop-modal.winning .top-wrap > div.btn:after {
       content: "炫耀一下";
-      display: block;
-      height: 2.222rem;
-      line-height: 2.222rem;
       background: -webkit-linear-gradient(top, #fffc59 0%, #ffce01 100%);
       background: linear-gradient(to bottom, #fffc59 0%, #ffce01 100%);
-      border-radius: 2rem;
       color: #cb2741; }
-  .pop-modal.winning div.top-wrap > div.coupon {
+  .pop-modal.winning .top-wrap > div.coupon {
     position: relative;
     height: 3.7222rem;
     width: 13.8333rem;
@@ -456,26 +470,26 @@ div.pop-modal {
     box-shadow: 0 0 0 0.4167rem rgba(255, 255, 255, 0.5);
     text-align: left;
     overflow: hidden; }
-    .pop-modal.winning div.top-wrap > div.coupon > div:nth-of-type(1) {
+    .pop-modal.winning .top-wrap > div.coupon > div:nth-of-type(1) {
       color: #4d4d4d;
       font-size: 0.889rem;
       line-height: 1.4; }
-    .pop-modal.winning div.top-wrap > div.coupon > div:nth-of-type(2) {
+    .pop-modal.winning .top-wrap > div.coupon > div:nth-of-type(2) {
       color: #666;
       font-size: 0.611rem;
       line-height: 1.4; }
-    .pop-modal.winning div.top-wrap > div.coupon > div:nth-of-type(3) {
+    .pop-modal.winning .top-wrap > div.coupon > div:nth-of-type(3) {
       color: #a1a1a1;
       font-size: 0.5556rem;
       line-height: 1.25; }
-    .pop-modal.winning div.top-wrap > div.coupon > div:nth-of-type(4) {
+    .pop-modal.winning .top-wrap > div.coupon > div:nth-of-type(4) {
       position: absolute;
       top: 0.8333rem;
       right: 0.472rem;
       color: #f24f52;
       font-size: 0.667rem;
       line-height: 1; }
-    .pop-modal.winning div.top-wrap > div.coupon:before {
+    .pop-modal.winning .top-wrap > div.coupon:before {
       content: "";
       position: absolute;
       top: 0;
@@ -504,3 +518,57 @@ div.pop-modal {
   border-radius: 0 0 0.4rem 0.4rem; }
   .pop-modal.winning.again div.top-wrap:after {
     height: 1rem; }
+
+.pop-modal.no-winning > div.center-wrap {
+  width: 17.138889rem;
+  left: 1.38889rem; }
+
+.pop-modal.no-winning .top-wrap {
+  background-color: #fff; }
+  .pop-modal.no-winning .top-wrap:before {
+    margin-left: -1.38889rem;
+    background-image: url("../images/6.png"); }
+  .pop-modal.no-winning .top-wrap > h3 {
+    color: #212121; }
+  .pop-modal.no-winning .top-wrap > h4 {
+    color: #616161; }
+  .pop-modal.no-winning .top-wrap > div.cry {
+    width: 3.472rem;
+    height: 5.972rem;
+    margin: 0.3rem auto 0.5rem;
+    background-size: 3.472rem 5.972rem;
+    background-image: url("../images/7.png");
+    background-repeat: no-repeat; }
+  .pop-modal.no-winning .top-wrap > div.tip {
+    color: #212121; }
+    .pop-modal.no-winning .top-wrap > div.tip > b {
+      color: #f66;
+      margin: 0 0.2rem; }
+  .pop-modal.no-winning .top-wrap > div.btn {
+    margin-top: 0.444rem; }
+    .pop-modal.no-winning .top-wrap > div.btn:after {
+      content: "立即分享";
+      background: -webkit-linear-gradient(top, #fe7b7b 0%, #e74e4e 100%);
+      background: linear-gradient(to bottom, #fe7b7b 0%, #e74e4e 100%);
+      color: #fff; }
+
+.pop-modal.no-winning .act-desc {
+  text-align: center;
+  background: #fff;
+  border-radius: 0 0 0.5rem 0.5rem;
+  font-size: 0.778rem;
+  color: #999;
+  padding-bottom: 0.5rem; }
+
+div.page-error {
+  position: fixed;
+  text-align: center;
+  color: #fff;
+  font-size: 2rem;
+  line-height: 2.2rem;
+  font-weight: bold;
+  top: 40%;
+  left: 0;
+  width: 100%; }
+  div.page-error > span {
+    font-size: 0.887rem; }
