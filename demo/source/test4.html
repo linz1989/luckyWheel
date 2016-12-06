@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #bg{
+            width:500px;
+            height:500px;
+            border:1px solid #f66;
+        }
+    </style>
+    <script type="text/javascript">
+        function init() {
+            var pi = Math.PI
+            var center = 250
+            var ctx = document.querySelector('#bg').getContext('2d')
+
+            var radial = ctx.createRadialGradient(250,250,0,250,250,250);
+            radial.addColorStop(0,'#f5385f');
+            radial.addColorStop(0.75,'#f5385f');
+            radial.addColorStop(0.82,'#eb1244');
+            radial.addColorStop(1,'#eb1244');
+
+            ctx.fillStyle = radial
+            ctx.arc(center,center,250, 0 , 2 * pi)
+            ctx.fill()
+
+        }
+    </script>
+</head>
+<body onload="init()">
+    <canvas id="bg" width="500" height="500"></canvas>
+</body>
+</html>

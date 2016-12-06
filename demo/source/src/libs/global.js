@@ -21,8 +21,8 @@ exports.Global = {
     userToken: '',
     userId: '',
     userName: '',
-    clubId: '',
     init: function () {
+        console.log('init.................')
         var ua = navigator.userAgent.toLowerCase()
         var _this = this
         var userAgent = _this.userAgent
@@ -47,7 +47,9 @@ exports.Global = {
                 }
             }
         }
+
         _this.userToken = _this.localStorage('spa_userToken')
+        console.log('_this.userToken：' + _this.userToken)
         _this.userId = _this.localStorage('spa_userID')
         _this.userName = _this.localStorage('spa_userName')
     },
@@ -150,10 +152,5 @@ exports.Global = {
                 })
             }
         })
-    },
-
-    toSpaPage: function (pageName) { // 跳转回SPA页面
-        var loc = location
-        loc.href = loc.origin + '/spa-manager/spa2/?club=' + this.clubId + '#' + pageName
     }
 }

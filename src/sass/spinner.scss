@@ -6,6 +6,11 @@
   height: 40px;
   margin-left:-20px;
   margin-top:-20px;
+  opacity: 0;
+  transition: opacity 0.4s;
+  &.act{
+    opacity: 1;
+  }
 }
 
 .container1 > div, .container2 > div, .container3 > div {

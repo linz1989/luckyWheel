@@ -15,33 +15,16 @@
   margin-left:-21rem;
   margin-top:-5rem;
   z-index:-1;
-  opacity: 0;
-  transform: rotate(-45deg) scale(0,0);
-  transition: opacity 0.45s, transform 0.8s ease-out;
-  &.act{
-    opacity: 1;
-    transform: rotate(0deg) scale(1,1);
-  }
 }
 
 .page-title{
   height:4.972rem;
   @include img('../images/2.png',16.528rem 4.972rem);
   background-position: center center;
-  opacity: 0;
-  transform: translateY(-4rem) scaleY(0.1);
-  transition: opacity 0.3s 0.7s, transform 0.3s 0.7s ease-out;
-  &.act{
-    opacity: 1;
-    transform: translateY(0rem) scaleY(1);
-  }
 }
 
 .counter-desc{
   text-align: center;
-  opacity: 0;
-  transform: translateY(-2rem);
-  transition: opacity 0.4s 1.5s, transform 0.5s 1.5s;
   >div{
     position: relative;
     display: inline-block;
@@ -75,10 +58,6 @@
       right: .556rem;
     }
   }
-  &.act{
-    opacity:1;
-    transform: translateY(0)
-  }
 }
 
 .wheel{
@@ -86,10 +65,6 @@
   height:18.388rem;
   margin-top:1.361rem;
   z-index:0;
-  opacity: 0;
-  transform: scale(0,0) rotate(-360deg);
-  transform-origin: 50% 50%;
-  transition: opacity 0.4s 0.8s, transform 0.7s 0.8s ease-out;
   >canvas{
     display: block;
     &:nth-of-type(1){
@@ -107,8 +82,6 @@
       top:50%;
       margin-left:-2.19445rem;
       margin-top:-2.91665rem;
-      opacity: 0;
-      transition: opacity 0.5s 1.6s ease-out;
     }
   }
   &:before{
@@ -118,8 +91,6 @@
     width:20rem;
     height:9.667rem;
     @include img("../images/3.png", 20rem 9.667rem);
-    opacity: 0;
-    transition: opacity 0.5s 1.5s;
   }
   &:after{
     content: "";
@@ -131,18 +102,6 @@
     margin-left:-4.3055rem;
     background: rgba(0,0,0,0.4);
     border-radius: 50% / 50%;
-    opacity: 0;
-    transition: opacity 0.5s 1.5s;
-  }
-  &.act{
-    opacity: 1;
-    transform: scale(1,1) rotate(0deg);
-    &:before, &:after{
-      opacity:1
-    }
-    >canvas:nth-of-type(2){
-      opacity: 1;
-    }
   }
 }
 
@@ -151,9 +110,6 @@
   margin: 0.8056rem 0.583rem 0;
   padding: 0.9444rem 1.1389rem;
   border-radius: 4px;
-  opacity: 0;
-  transform: translateX(5rem);
-  transition: opacity 0.5s 1.7s, transform 0.7s 1.7s;
   >h3{
     position: relative;
     text-align: center;
@@ -178,10 +134,6 @@
     &:after{
       right:0;
     }
-  }
-  &.act{
-    opacity:1;
-    transform: translateX(0);
   }
 }
 
@@ -209,18 +161,13 @@
 }
 
 .desc-list{
-  ul,div{
+  >ul{
     padding-top:0.7rem;
-    li{
+    >li{
       color:#616161;
       font-size:0.8333rem;
       padding: 0.1rem 0;
     }
-  }
-  >div{
-    color:#616161;
-    font-size:0.8333rem;
-    padding: 0.1rem 0;
   }
 }
 
@@ -277,7 +224,7 @@
     height:1.667rem;
     left:50%;
     margin-left:-0.8335rem;
-    bottom: -2rem;
+    bottom: -2.5rem;
     background: #fff;
     border-radius: 50%;
     text-align: center;
@@ -388,11 +335,6 @@
       &:after{
         height:1rem;
       }
-      >div.btn{
-        &:after {
-          content: "再抽一次";
-        }
-      }
     }
   }
 }
@@ -433,11 +375,6 @@
         content: "立即分享";
         background: linear-gradient(to bottom, #fe7b7b 0%, #e74e4e 100%);
         color:#fff;
-      }
-      &.again{
-        &:after{
-          content: '再抽一次'
-        }
       }
     }
   }

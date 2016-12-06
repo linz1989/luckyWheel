@@ -36,7 +36,7 @@ gulp.task('cls', function () {
 //启动server
 gulp.task('connect', function () {
     connect.server({
-        port: 8099
+        port: 8081
     });
 });
 
@@ -107,16 +107,20 @@ var exists = function( src, dst, callback ){
 
 //清理
 gulp.task('clean-pub', function () {
-    return gulp.src(['E:/workspace/spa-manager/WebRoot/luckyWheel/*'], {read: false})
+    return gulp.src(['E:/workspace/spa-manager/WebRoot/journal/*'], {read: false})
         .pipe(clean());
 });
 
 gulp.task('pub-dist',function(){
-    exists( 'dist', 'E:/workspace/spa-manager/WebRoot/luckyWheel/', copy );
+    exists( 'dist', 'E:/workspace/spa-manager/WebRoot/journal/', copy );
 });
 
 gulp.task('pub-img',function(){
-    exists( 'src/images', 'E:/workspace/spa-manager/WebRoot/luckyWheel/images', copy );
+    exists( 'src/images', 'E:/workspace/spa-manager/WebRoot/journal/images', copy );
+});
+
+gulp.task('pub-img-1',function(){
+    exists( 'src/images', 'dist/images', copy );
 });
 
 ////上线执行 gulp build

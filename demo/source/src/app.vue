@@ -3,7 +3,7 @@
 </style>
 <template>
     <div class="lottery-page">
-        <div ref="spinner" v-show="loading && !loadError" class="spinner act" @transitionend="doLoadingHide()">
+        <div v-show="loading && !loadError" class="spinner">
             <div class="spinner-container container1">
                 <div class="circle1"></div>
                 <div class="circle2"></div>
@@ -23,65 +23,48 @@
                 <div class="circle4"></div>
             </div>
         </div>
-
         <template>
-            <canvas ref="lightBg" class="light-bg ani" width="1512" height="1512" v-show="!loading && !loadError"></canvas>
-            <div class="page-title ani" v-show="!loading && !loadError"></div>
-            <div class="counter-desc ani" v-show="!loading && !loadError"><div>剩余<span>{{ currLotteryCount }}</span>次抽奖机会</div></div>
-            <div class="wheel ani" v-show="!loading && !loadError">
+            <canvas ref="lightBg" class="light-bg" width="1512" height="1512" v-show="!loading && !loadError"></canvas>
+            <div class="page-title" v-show="!loading && !loadError"></div>
+            <div class="counter-desc" v-show="!loading && !loadError"><div>剩余<span>{{ currLotteryCount }}</span>次抽奖机会</div></div>
+            <div class="wheel" v-show="!loading && !loadError">
                 <canvas ref="wheel" width="662" height="662" :style="{ transform: 'rotate('+ needRotateDeg +'deg)', 'transition-duration' : needRotateDuration+'s'}" @transitionend="doHandlerRotateEnd()"></canvas>
                 <canvas ref="pointer" width="158" height="210" @click="doClickLotteryBtn()"></canvas>
             </div>
-            <div class="list-wrap winning-list ani" v-show="!loading && !loadError">
+            <div class="list-wrap winning-list" v-show="!loading && !loadError">
                 <h3><span>中</span>奖名单</h3>
                 <ul>
-                    <li v-if="recordList.length == 0"><div>暂无中奖名单。</div></li>
-                    <li v-if="recordList.length > 0" v-for="item in recordList"><div>{{ item.userName }}</div><div>恭喜您获得{{ item.prizeName }}</div></li>
+                    <li><div>张小花</div><div>恭喜您获得一瓶可乐</div></li>
                 </ul>
             </div>
-            <div class="list-wrap desc-list ani" v-show="!loading && !loadError">
+            <div class="list-wrap desc-list" v-show="!loading && !loadError">
                 <h3><span>活</span>动说明</h3>
-                <div v-html="actDesc"></div>
+                <ul>
+                    <li>1、活动时间2016-11-11至2016-12-12动时间2016-11-11至2016-12-12</li>
+                    <li>2、分享可获取一次抽奖机会</li>
+                    <li>3、分享可获取一次抽奖机会</li>
+                    <li>4、分享可获取一次抽奖机会</li>
+                </ul>
             </div>
         </template>
-
-        <div v-if="loadError" class="page-error">404<br/><span>{{ loadErrorTip || '您访问的页面不存在！' }}</span></div>
-
+        <div v-if="loadError" class="page-error">404<br/><span>您访问的页面不存在！</span></div>
         <!-- 中奖 实物弹窗 -->
         <div class="pop-modal winning material" :class="{ active: popData.material }">
             <div class="center-wrap">
-                <div class="top-wrap" v-if="rewardGift">
+                <div class="top-wrap">
                     <h3>中奖啦！</h3>
                     <h4>恭喜您获得：</h4>
-                    <h2>{{ rewardGift.name }}</h2>
-                    <div class="btn" @click="doClickShareBtn('material')"></div>
+                    <h2>iphone 6s</h2>
+                    <div class="btn"></div>
                 </div>
                 <split-line type="red"></split-line>
-                <ul class="act-desc" v-if="rewardData">
-                    <li>1、您的兑换码为：{{ rewardData.verifyCode }}；</li>
-                    <li>2、在个人中心可以查看您的中奖信息，<a @click="toSpaPage('personal')">立即查看</a>；</li>
-                    <li>3、请在活动时间内，及时兑换您的奖品，活动时间：{{ actStartTime }}至{{ actEndTime }}</li>
-                    <li>4、最终解释权，归<a @click="toSpaPage('home')">{{ clubName }}</a>所有。</li>
+                <ul class="act-desc">
+                    <li>1、您的兑换码为：11111111</li>
+                    <li>2、您的兑换码为：<a>立即查看</a></li>
+                    <li>3、您的兑换码为：11111111</li>
+                    <li>4、您的兑换码为：11111111</li>
                 </ul>
                 <div class="close-btn" @click="closePopModal('material')">&times;</div>
-            </div>
-        </div>
-        <!-- 中奖 积分弹窗 -->
-        <div class="pop-modal winning material" :class="{ active: popData.integral }">
-            <div class="center-wrap">
-                <div class="top-wrap" v-if="rewardData && rewardData.type==0">
-                    <h3>中奖啦！</h3>
-                    <h4>恭喜您获得：</h4>
-                    <h2>{{ rewardData.content }}积分</h2>
-                    <div class="btn" @click="doClickShareBtn('integral')"></div>
-                </div>
-                <split-line type="red"></split-line>
-                <ul class="act-desc" v-if="rewardData && rewardData.type==0">
-                    <li>1、在个人中心可以查看您的中奖信息，<a @click="toSpaPage('personal')">立即查看</a>；</li>
-                    <li>2、请在活动时间内，及时兑换您的奖品，活动时间：{{ actStartTime }}至{{ actEndTime }}</li>
-                    <li>3、最终解释权，归<a @click="toSpaPage('home')">{{ clubName }}</a>所有。</li>
-                </ul>
-                <div class="close-btn" @click="closePopModal('integral')">&times;</div>
             </div>
         </div>
         <!-- 中奖 优惠券 -->
@@ -90,44 +73,22 @@
                 <div class="top-wrap">
                     <h3>中奖啦！</h3>
                     <h4>恭喜您获得：</h4>
-                    <div class="coupon" v-if="rewardData && rewardData.type==2">
-                        <div>{{ rewardData.name }}</div>
-                        <div>满100元可用</div>
-                        <div>券有效期：2015-11-11至2016-12-12</div>
-                        <div>现金券</div>
-                    </div>
-                    <div class="btn" @click="doClickShareBtn('coupon')"></div>
-                </div>
-                <split-line type="red"></split-line>
-                <ul class="act-desc">
-                    <li>1、请及时使用您的优惠券，<a @click="toSpaPage('coupon')">立即使用</a></li>
-                    <li>2、在个人中心可以查看您的中奖信息，<a @click="toSpaPage('personal')">立即查看</a>；</li>
-                    <li>3、最终解释权，归<a @click="toSpaPage('home')">{{ clubName }}</a>所有。</li>
-                </ul>
-                <div class="close-btn" @click="closePopModal('coupon')">&times;</div>
-            </div>
-        </div>
-        <!-- 中奖 项目券 -->
-        <div class="pop-modal winning coupon" :class="{ active: popData.serviceItem }">
-            <div class="center-wrap">
-                <div class="top-wrap">
-                    <h3>中奖啦！</h3>
-                    <h4>恭喜您获得：</h4>
-                    <div class="coupon" v-if="rewardData && rewardData.type==3">
+                    <div class="coupon">
                         <div>198元</div>
                         <div>满100元可用</div>
                         <div>券有效期：2015-11-11至2016-12-12</div>
                         <div>现金券</div>
                     </div>
-                    <div class="btn" @click="doClickShareBtn('serviceItem')"></div>
+                    <div class="btn"></div>
                 </div>
                 <split-line type="red"></split-line>
                 <ul class="act-desc">
-                    <li>1、请及时使用您的优惠券，<a @click="toSpaPage('coupon')">立即使用</a></li>
-                    <li>2、在个人中心可以查看您的中奖信息，<a @click="toSpaPage('personal')">立即查看</a>；</li>
-                    <li>3、最终解释权，归<a @click="toSpaPage('home')">{{ clubName }}</a>所有。</li>
+                    <li>1、您的兑换码为：11111111</li>
+                    <li>2、您的兑换码为：<a>立即查看</a></li>
+                    <li>3、您的兑换码为：11111111</li>
+                    <li>4、您的兑换码为：11111111</li>
                 </ul>
-                <div class="close-btn" @click="closePopModal('serviceItem')">&times;</div>
+                <div class="close-btn" @click="closePopModal('coupon')">&times;</div>
             </div>
         </div>
         <!-- 中奖 再抽一次 -->
@@ -137,7 +98,7 @@
                     <h3>中奖啦！</h3>
                     <h4>恭喜您获得：</h4>
                     <h2>再抽一次的机会</h2>
-                    <div class="btn" @click="doClickAgainBtn()"></div>
+                    <div class="btn"></div>
                 </div>
                 <div class="close-btn" @click="closePopModal('again')">&times;</div>
             </div>
@@ -150,10 +111,10 @@
                     <h4>谢谢您的参与，非常抱歉没能中奖！</h4>
                     <div class="cry"></div>
                     <div class="tip">分享活动，再抽<b>1</b>次</div>
-                    <div class="btn" @click="closePopModal('canShare')"></div>
+                    <div class="btn"></div>
                 </div>
                 <split-line type="white"></split-line>
-                <div class="act-desc">注：活动时间，每天都有{{ everyDayLotteryCount }}次机会</div>
+                <div class="act-desc">注：活动时间，每天都有2次机会</div>
                 <div class="close-btn" @click="closePopModal('canShare')">&times;</div>
             </div>
         </div>
@@ -164,11 +125,11 @@
                     <h3>非常遗憾！</h3>
                     <h4>谢谢您的参与，非常抱歉没能中奖！</h4>
                     <div class="cry"></div>
-                    <div class="tip" v-show="currLotteryCount==0">明天再来抽<b>{{ everyDayLotteryCount }}</b>次</div>
-                    <div class="btn" :class="{ again: currLotteryCount>0 }" @click="closePopModal('noChance', currLotteryCount>0)"></div>
+                    <div class="tip">明天再来抽<b>{{ totalLotteryCount }}</b>次</div>
+                    <div class="btn"></div>
                 </div>
                 <split-line type="white"></split-line>
-                <div class="act-desc">注：活动时间，每天都有{{ everyDayLotteryCount }}次机会</div>
+                <div class="act-desc">注：活动时间，每天都有2次机会</div>
                 <div class="close-btn" @click="closePopModal('noChance')">&times;</div>
             </div>
         </div>
@@ -176,7 +137,6 @@
 </template>
 <script>
     import { Global } from './libs/global'
-    import { eventHub } from './libs/hub'
     import SplitLine from './components/splitLine'
 
     module.exports = {
@@ -187,35 +147,24 @@
             return {
                 loading: true,
                 loadError: false,
-                loadErrorTip: '',
-                clubName: '', // 会所名称
-                clubId: '', // 会所ID
-                clubLogo: '', // 会所logo
-
                 currRotateDeg: 0, // 当前旋转的度数
                 needRotateDeg: 0, // 当点击抽奖之后，转盘需要旋转的度数
                 needRotateDuration: 5, // 旋转的时间
                 inRotating: false, // 是否正在旋转抽奖中
-                rewardGift: null, // 当前所中的奖品
-                rewardData: null, // 中奖之后后端返回的数据
-                everyDayLotteryCount: 2, // 每天默认的可抽奖次数
-                currLotteryCount: 0, // 当前的抽奖次数
+                rewardGift: '', // 当前所中的奖品
+                totalLotteryCount: 20, // 每天默认的可抽奖次数
+                currLotteryCount: 20, // 当前的抽奖次数
                 hasShared: false, // 是否已经分享了
-
-                actName: '幸运大转盘',
-                actId: '',
-                actDesc: '', // 活动说明
-                actStartTime: '', // 活动开始时间
-                actEndTime: '', // 活动结束时间
-                giftMap: ['integral', 'material', 'coupon', 'serviceItem', 'again', 'none'],
-                giftList: [],
-                recordList: [], // 中奖纪录
-
+                giftList: [
+                    {name: '移动电源', type: 'material', deg: 0},
+                    {name: '¥100元现金券', type: 'coupon', deg: 0},
+                    {name: '谢谢惠顾', type: 'none', deg: 0},
+                    {name: 'iphone 6s', type: 'material', deg: 0},
+                    {name: '50元泰式按摩券', type: 'coupon', deg: 0},
+                    {name: '再来一次', type: 'again', deg: 0}],
                 popData: { // 控制弹窗的对象
                     material: false, // 中奖 实物弹窗
-                    integral: false, // 中奖 积分弹窗
                     coupon: false, // 中奖 优惠券
-                    serviceItem: false, // 中奖 项目券
                     again: false, // 中奖 再抽一次
                     canShare: false, // 未中奖 分享可再抽一次
                     noChance: false // 未中奖 没有抽奖机会
@@ -224,114 +173,14 @@
         },
         mounted: function () {
             var that = this
-            var global = Global
-            var pageParams = global.pageParams
-
-            that.actId = pageParams.actId
-            that.clubId = pageParams.clubId
-            global.clubId = that.clubId
-
-            if (!that.actId || !that.clubId) {
-                return that.toBack('页面缺少访问参数！')
-            } else if (!global.userToken || !global.userId) {
-                global.tipShow('请您先登录！')
+            that.$nextTick(function () {
                 setTimeout(function () {
-                    global.sessionStorage('spa_login_luckyWheel', that.actId)
-                    that.toSpaPage('login')
-                }, 500)
-                return
-            }
-
-            that.$http.get('../api/v2/user/luckyWheel/toActMain', {params: {actId: pageParams.actId}}).then(function (res) {
-                res = res.body
-                if (res.statusCode == 200) {
-                    res = res.respData
-                    var act = res.activity
-                    that.actName = act.name
-                    that.actId = act.id
-                    that.actDesc = act.description
-                    that.actStartTime = act.startTime
-                    that.actEndTime = act.endTime
-                    that.currLotteryCount = res.drawChance // 剩余抽奖机会
-                    if (that.currLotteryCount < 0) {
-                        that.currLotteryCount = 0
-                    }
-
-                    var club = res.club
-                    that.clubName = club.clubName
-                    that.clubLogo = club.clubLogo || './images/logo.png'
-
-                    var prizeList = res.prizeList
-                    var giftList = []
-                    var prize
-                    for (var k = 0; k < prizeList.length; k++) {
-                        prize = prizeList[k]
-                        giftList.push({
-                            id: prize.prizeId,
-                            name: prize.prizeName,
-                            type: that.giftMap[prize.prizeType],
-                            deg: 0
-                        })
-                    }
-                    that.giftList = giftList
-                    that.recordList = res.recordList
                     that.init()
-
-                    // 分享配置
-                    global.shareConfig({
-                        title: that.actName,
-                        desc: '那一世转山转水，只为相见，点我立即开始',
-                        link: location.href,
-                        imgUrl: that.clubLogo,
-                        success: function () {
-                            if (!that.hasShared) { // 未分享过，抽奖机会+1
-                                that.$http.get('../api/v2/user/luckyWheel/shareAddDrawChance', {params: {actId: that.actId}}).then(function (sharedRes) {
-                                    sharedRes = sharedRes.body
-                                    if (sharedRes.statusCode == 200) {
-                                        that.currLotteryCount ++
-                                        that.hasShared = true
-                                        global.localStorage(global.userId + '-' + that.actId, (+new Date()))
-                                    }
-                                })
-                            }
-                        }
-                    })
-
-                    // 判断是否已分享了
-                    var lastSharedTime = global.localStorage(global.userId + '-' + that.actId)
-                    if (lastSharedTime) {
-                        lastSharedTime = new Date(lastSharedTime)
-                        var currDate = new Date()
-                        if (lastSharedTime.getFullYear() == currDate.getFullYear() && lastSharedTime.getMonth() == currDate.getMonth() && lastSharedTime.getDate() == currDate.getDate()) {
-                            that.hasShared = true // 今天已经分享过了
-                        }
-                    }
-
-                    that.$refs.spinner.classList.remove('act')
-                    sessionStorage.removeItem('spa_login_luckyWheel')
-                } else {
-                    // global.tipShow(res.msg || '数据请求异常！')
-                    if (res.msg) {
-                        that.loadErrorTip = res.msg
-                    }
-                    that.loadError = true
-                }
-            }, function () {
-                that.toBack('数据请求异常！')
+                    that.loading = false
+                }, 2000)
             })
         },
         methods: {
-            doLoadingHide: function () {
-                var that = this
-                that.loading = false
-                setTimeout(function () {
-                    // 初始动画
-                    var aniEls = that.$el.querySelectorAll('.ani')
-                    for (var i = 0; i < aniEls.length; i++) {
-                        aniEls[i].classList.add('act')
-                    }
-                }, 0)
-            },
             init: function () {
                 var that = this
                 var pi = Math.PI
@@ -561,117 +410,47 @@
                 }
                 return text.length
             },
-            closePopModal: function (popName, again) {
-                var that = this
-                that.popData[popName] = false
-                if (again && popName == 'noChance' && that.currLotteryCount > 0) { // 未中奖，点击再抽一次
-                    that.doClickLotteryBtn()
-                }
+            closePopModal: function (popName) {
+                this.popData[popName] = false
             },
-            doClickLotteryBtn: function () { // 点击抽奖按钮
+            doClickLotteryBtn: function () {
                 var that = this
-                var global = Global
                 if (that.inRotating) {
-                    return global.tipShow('抽奖中...')
+                    return Global.tipShow('抽奖中...')
                 }
                 if (that.currLotteryCount == 0) {
-                    return global.tipShow('当前您的剩余抽奖次数为0！')
+                    return Global.tipShow('当前您的剩余抽奖次数为0！')
                 }
-                that.$http.post('../api/v2/user/luckyWheel/drawLuckyWheel', {actId: that.actId}).then(function (res) {
-                    res = res.body
-                    if (res.statusCode == 200) {
-                        res = res.respData
-                        var giftList = that.giftList
-                        for (var k = 0; k < giftList.length; k++) {
-                            if (giftList[k].id == res.id) {
-                                that.rewardGift = giftList[k]
-                                break
-                            }
-                        }
-                        if (that.rewardGift) {
-                            var verifyCode = res.verifyCode
-                            if (verifyCode && verifyCode.length == 12) {
-                                res.verifyCode = verifyCode.substr(0, 4) + ' ' + verifyCode.substr(4, 4) + ' ' + verifyCode.slice(-4)
-                            }
-                            that.rewardData = res
-                            that.inRotating = true
-                            var deltDeg = 360 * 3 + that.rewardGift.deg - that.currRotateDeg % 360
-                            that.needRotateDuration = 0.75 * (deltDeg / 180)
-                            that.needRotateDeg = that.currRotateDeg + deltDeg
-                            console.log('needRotateDeg：' + that.needRotateDeg + 'deltDeg：' + deltDeg + 'duration：' + that.needRotateDuration)
-                            that.currRotateDeg = that.needRotateDeg
-                        } else {
-                            global.tipShow('抽奖结果异常！')
-                        }
-                    }
-                })
+                var giftList = that.giftList
+                that.rewardGift = giftList[parseInt(Math.random() * giftList.length)]
+                that.inRotating = true
+                var deltDeg = 360 * 3 + that.rewardGift.deg - that.currRotateDeg % 360
+                that.needRotateDuration = 0.75 * (deltDeg / 180)
+                that.needRotateDeg = that.currRotateDeg + deltDeg
+                console.log('needRotateDeg：' + that.needRotateDeg + 'deltDeg：' + deltDeg + 'duration：' + that.needRotateDuration)
+                that.currRotateDeg = that.needRotateDeg
             },
             doHandlerRotateEnd: function () { // 转盘旋转结束的处理
                 var that = this
-                var global = Global
                 if (that.inRotating) {
                     that.inRotating = false
                     that.currLotteryCount -- // 抽奖次数-1
                     var rewardType = that.rewardGift.type
                     console.log('当前的中奖：' + that.rewardGift.name)
-                    var popData = that.popData
-                    if (/^(material|integral|coupon|again|serviceItem)$/.test(rewardType)) {
-                        popData[rewardType] = true
-                        if (rewardType != 'again') { // 添加中奖纪录
-                            var recordList = that.recordList
-                            var newRecord = {
-                                userName: global.userName
-                            }
-                            var rewardData = that.rewardData
-                            if (rewardType == 'material') {
-                                newRecord.prizeName = that.rewardGift.name
-                            } else if (rewardType == 'integral') {
-                                newRecord.prizeName = rewardData.content + '积分'
-                            }
-
-                            if (recordList.length == 3) {
-                                recordList.shift()
-                            }
-                            recordList.push(newRecord)
-                        }
+                    if (/^(material|coupon|again)$/.test(rewardType)) {
+                        that.popData[rewardType] = true
                     } else if (rewardType == 'none') { // 未能中奖
-                        if (that.currLotteryCount > 0) { // 还有可抽奖次数
-                            popData.noChance = true
-                        } else if (!that.hasShared) { // 还未分享，分享可再抽一次
-                            popData.canShare = true
+                        if (!that.hasShared) { // 还未分享，分享可在抽一次
+                            that.popData.canShare = true
                         } else {
-                            popData.noChance = true
+                            that.popData.noChance = true
                         }
                     }
+
                     if (rewardType == 'again') { // 抽中再来一次，抽奖次数+1
                         that.currLotteryCount ++
                     }
                 }
-            },
-            doClickShareBtn: function (popName) { // 点击分享按钮
-                var that = this
-                var global = Global
-                that.popData[popName] = false
-                if (global.userAgent.isWX) {
-                    eventHub.$emit('change-share-pop', true)
-                } else {
-                    global.tipShow('请在微信中打开并分享！')
-                }
-            },
-            doClickAgainBtn: function () { // 点击再抽一次按钮
-                var that = this
-                that.popData.again = false
-                that.doClickLotteryBtn() // 再次抽取一次
-            },
-            toBack: function (str) {
-                var global = Global
-                global.tipShow(str)
-                setTimeout(function () {
-                    history.back()
-                }, 1000)
-            },
-            toSpaPage: function (pageName) { // 跳转回SPA页面
-                Global.toSpaPage(pageName)
             }
         }
     }
