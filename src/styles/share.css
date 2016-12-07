@@ -1,0 +1,15 @@
+div.share-pop > div.top {
+  width: 9.222rem;
+  height: 5rem;
+  position: absolute;
+  top: 0.445rem;
+  right: 0.611rem;
+  padding-left: 0.42rem;
+  padding-right: 0.42rem;
+  background-size: 9.222rem 5rem;
+  background-image: url("../images/tip.png");
+  background-repeat: no-repeat;
+  font-size: 0.889rem;
+  color: #fff;
+  text-align: center;
+  padding-top: 1.4rem; }

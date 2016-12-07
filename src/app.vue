@@ -46,10 +46,11 @@
         </template>
 
         <div v-if="loadError" class="page-error">404<br/><span>{{ loadErrorTip || '您访问的页面不存在！' }}</span></div>
+        <div class="back-btn ani"><div @click="toSpaPage('home')"></div><!-- div @click="toSpaPage('home')">会所</div --></div>
 
         <!-- 中奖 实物弹窗 -->
-        <div class="pop-modal winning material" :class="{ active: popData.material }">
-            <div class="center-wrap">
+        <div class="pop-modal winning material" :class="{ active: popData.material }" @click="closePopModal('material')">
+            <div class="center-wrap" @click="doClickPopWrap($event)">
                 <div class="top-wrap" v-if="rewardGift">
                     <h3>中奖啦！</h3>
                     <h4>恭喜您获得：</h4>
@@ -59,7 +60,7 @@
                 <split-line type="red"></split-line>
                 <ul class="act-desc" v-if="rewardData">
                     <li>1、您的兑换码为：{{ rewardData.verifyCode }}；</li>
-                    <li>2、在个人中心可以查看您的中奖信息，<a @click="toSpaPage('personal')">立即查看</a>；</li>
+                    <li>2、在个人中心可以查看您的中奖信息，<a @click="toSpaPage('lucky')">立即查看</a>；</li>
                     <li>3、请在活动时间内，及时兑换您的奖品，活动时间：{{ actStartTime }}至{{ actEndTime }}</li>
                     <li>4、最终解释权，归<a @click="toSpaPage('home')">{{ clubName }}</a>所有。</li>
                 </ul>
@@ -67,17 +68,17 @@
             </div>
         </div>
         <!-- 中奖 积分弹窗 -->
-        <div class="pop-modal winning material" :class="{ active: popData.integral }">
-            <div class="center-wrap">
+        <div class="pop-modal winning material" :class="{ active: popData.integral }" @click="closePopModal('integral')">
+            <div class="center-wrap" @click="doClickPopWrap($event)">
                 <div class="top-wrap" v-if="rewardData && rewardData.type==0">
                     <h3>中奖啦！</h3>
                     <h4>恭喜您获得：</h4>
-                    <h2>{{ rewardData.content }}积分</h2>
+                    <h2>{{ rewardData.content }} 积分</h2>
                     <div class="btn" @click="doClickShareBtn('integral')"></div>
                 </div>
                 <split-line type="red"></split-line>
                 <ul class="act-desc" v-if="rewardData && rewardData.type==0">
-                    <li>1、在个人中心可以查看您的中奖信息，<a @click="toSpaPage('personal')">立即查看</a>；</li>
+                    <li>1、在个人中心可以查看您的中奖信息，<a @click="toSpaPage('lucky')">立即查看</a>；</li>
                     <li>2、请在活动时间内，及时兑换您的奖品，活动时间：{{ actStartTime }}至{{ actEndTime }}</li>
                     <li>3、最终解释权，归<a @click="toSpaPage('home')">{{ clubName }}</a>所有。</li>
                 </ul>
@@ -85,54 +86,54 @@
             </div>
         </div>
         <!-- 中奖 优惠券 -->
-        <div class="pop-modal winning coupon" :class="{ active: popData.coupon }">
-            <div class="center-wrap">
+        <div class="pop-modal winning coupon" :class="{ active: popData.coupon }" @click="closePopModal('coupon')">
+            <div class="center-wrap" @click="doClickPopWrap($event)">
                 <div class="top-wrap">
                     <h3>中奖啦！</h3>
                     <h4>恭喜您获得：</h4>
                     <div class="coupon" v-if="rewardData && rewardData.type==2">
-                        <div>{{ rewardData.name }}</div>
-                        <div>满100元可用</div>
-                        <div>券有效期：2015-11-11至2016-12-12</div>
-                        <div>现金券</div>
+                        <div>{{ rewardData.cardInfo.cardName }}</div>
+                        <div>{{ rewardData.cardInfo.useConditions }}</div>
+                        <div>券有效期：{{ rewardData.cardInfo.startTime }}至{{ rewardData.cardInfo.endTime }}</div>
+                        <div>{{ rewardData.cardInfo.cardType }}</div>
                     </div>
                     <div class="btn" @click="doClickShareBtn('coupon')"></div>
                 </div>
                 <split-line type="red"></split-line>
                 <ul class="act-desc">
                     <li>1、请及时使用您的优惠券，<a @click="toSpaPage('coupon')">立即使用</a></li>
-                    <li>2、在个人中心可以查看您的中奖信息，<a @click="toSpaPage('personal')">立即查看</a>；</li>
+                    <li>2、在个人中心可以查看您的中奖信息，<a @click="toSpaPage('lucky')">立即查看</a>；</li>
                     <li>3、最终解释权，归<a @click="toSpaPage('home')">{{ clubName }}</a>所有。</li>
                 </ul>
                 <div class="close-btn" @click="closePopModal('coupon')">&times;</div>
             </div>
         </div>
         <!-- 中奖 项目券 -->
-        <div class="pop-modal winning coupon" :class="{ active: popData.serviceItem }">
-            <div class="center-wrap">
+        <div class="pop-modal winning coupon" :class="{ active: popData.serviceItem }" @click="closePopModal('serviceItem')">
+            <div class="center-wrap" @click="doClickPopWrap($event)">
                 <div class="top-wrap">
                     <h3>中奖啦！</h3>
                     <h4>恭喜您获得：</h4>
                     <div class="coupon" v-if="rewardData && rewardData.type==3">
-                        <div>198元</div>
-                        <div>满100元可用</div>
-                        <div>券有效期：2015-11-11至2016-12-12</div>
-                        <div>现金券</div>
+                        <div>{{ rewardData.cardInfo.cardName }}</div>
+                        <div>{{ rewardData.cardInfo.useConditions }}</div>
+                        <div>券有效期：{{ rewardData.cardInfo.startTime }}至{{ rewardData.cardInfo.endTime }}</div>
+                        <div>{{ rewardData.cardInfo.cardType }}</div>
                     </div>
                     <div class="btn" @click="doClickShareBtn('serviceItem')"></div>
                 </div>
                 <split-line type="red"></split-line>
                 <ul class="act-desc">
                     <li>1、请及时使用您的优惠券，<a @click="toSpaPage('coupon')">立即使用</a></li>
-                    <li>2、在个人中心可以查看您的中奖信息，<a @click="toSpaPage('personal')">立即查看</a>；</li>
+                    <li>2、在个人中心可以查看您的中奖信息，<a @click="toSpaPage('lucky')">立即查看</a>；</li>
                     <li>3、最终解释权，归<a @click="toSpaPage('home')">{{ clubName }}</a>所有。</li>
                 </ul>
                 <div class="close-btn" @click="closePopModal('serviceItem')">&times;</div>
             </div>
         </div>
         <!-- 中奖 再抽一次 -->
-        <div class="pop-modal winning again" :class="{ active: popData.again }">
-            <div class="center-wrap">
+        <div class="pop-modal winning again" :class="{ active: popData.again }" @click="closePopModal('again')">
+            <div class="center-wrap" @click="doClickPopWrap($event)">
                 <div class="top-wrap">
                     <h3>中奖啦！</h3>
                     <h4>恭喜您获得：</h4>
@@ -143,14 +144,14 @@
             </div>
         </div>
         <!-- 未中奖 分享可再抽一次 -->
-        <div class="pop-modal no-winning" :class="{ active: popData.canShare }">
-            <div class="center-wrap">
+        <div class="pop-modal no-winning" :class="{ active: popData.canShare }" @click="closePopModal('canShare')">
+            <div class="center-wrap" @click="doClickPopWrap($event)">
                 <div class="top-wrap">
                     <h3>非常遗憾！</h3>
                     <h4>谢谢您的参与，非常抱歉没能中奖！</h4>
                     <div class="cry"></div>
                     <div class="tip">分享活动，再抽<b>1</b>次</div>
-                    <div class="btn" @click="closePopModal('canShare')"></div>
+                    <div class="btn" @click="doClickShareBtn('canShare')"></div>
                 </div>
                 <split-line type="white"></split-line>
                 <div class="act-desc">注：活动时间，每天都有{{ everyDayLotteryCount }}次机会</div>
@@ -158,14 +159,14 @@
             </div>
         </div>
         <!-- 未中奖 没有抽奖机会 -->
-        <div class="pop-modal no-winning" :class="{ active: popData.noChance }">
-            <div class="center-wrap">
+        <div class="pop-modal no-winning" :class="{ active: popData.noChance }" @click="closePopModal('noChance')">
+            <div class="center-wrap" @click="doClickPopWrap($event)">
                 <div class="top-wrap">
                     <h3>非常遗憾！</h3>
                     <h4>谢谢您的参与，非常抱歉没能中奖！</h4>
                     <div class="cry"></div>
                     <div class="tip" v-show="currLotteryCount==0">明天再来抽<b>{{ everyDayLotteryCount }}</b>次</div>
-                    <div class="btn" :class="{ again: currLotteryCount>0 }" @click="closePopModal('noChance', currLotteryCount>0)"></div>
+                    <div class="btn" :class="{ again: currLotteryCount>0 }" @click="doClickShareBtn('noChance', currLotteryCount>0)"></div>
                 </div>
                 <split-line type="white"></split-line>
                 <div class="act-desc">注：活动时间，每天都有{{ everyDayLotteryCount }}次机会</div>
@@ -178,10 +179,12 @@
     import { Global } from './libs/global'
     import { eventHub } from './libs/hub'
     import SplitLine from './components/splitLine'
+    import Share from './components/share'
 
     module.exports = {
         components: {
-            'split-line': SplitLine
+            'split-line': SplitLine,
+            'share': Share
         },
         data: function () {
             return {
@@ -231,7 +234,7 @@
             that.clubId = pageParams.clubId
             global.clubId = that.clubId
 
-            if (!that.actId || !that.clubId) {
+            if (!that.actId) {
                 return that.toBack('页面缺少访问参数！')
             } else if (!global.userToken || !global.userId) {
                 global.tipShow('请您先登录！')
@@ -258,6 +261,7 @@
                     }
 
                     var club = res.club
+                    global.clubId = that.clubId = club.clubId
                     that.clubName = club.clubName
                     that.clubLogo = club.clubLogo || './images/logo.png'
 
@@ -308,7 +312,7 @@
                     }
 
                     that.$refs.spinner.classList.remove('act')
-                    sessionStorage.removeItem('spa_login_luckyWheel')
+                    // sessionStorage.removeItem('spa_login_luckyWheel')
                 } else {
                     // global.tipShow(res.msg || '数据请求异常！')
                     if (res.msg) {
@@ -561,12 +565,12 @@
                 }
                 return text.length
             },
-            closePopModal: function (popName, again) {
+            closePopModal: function (popName) {
                 var that = this
                 that.popData[popName] = false
-                if (again && popName == 'noChance' && that.currLotteryCount > 0) { // 未中奖，点击再抽一次
-                    that.doClickLotteryBtn()
-                }
+            },
+            doClickPopWrap: function (event) {
+                event.stopPropagation()
             },
             doClickLotteryBtn: function () { // 点击抽奖按钮
                 var that = this
@@ -648,14 +652,18 @@
                     }
                 }
             },
-            doClickShareBtn: function (popName) { // 点击分享按钮
+            doClickShareBtn: function (popName, again) { // 点击分享按钮
                 var that = this
                 var global = Global
                 that.popData[popName] = false
-                if (global.userAgent.isWX) {
-                    eventHub.$emit('change-share-pop', true)
+                if (again && popName == 'noChance' && that.currLotteryCount > 0) { // 未中奖，点击再抽一次
+                    that.doClickLotteryBtn()
                 } else {
-                    global.tipShow('请在微信中打开并分享！')
+                    if (global.userAgent.isWX) {
+                        eventHub.$emit('change-share-pop', true)
+                    } else {
+                        global.tipShow('请在微信中打开并分享！')
+                    }
                 }
             },
             doClickAgainBtn: function () { // 点击再抽一次按钮
@@ -664,11 +672,15 @@
                 that.doClickLotteryBtn() // 再次抽取一次
             },
             toBack: function (str) {
-                var global = Global
-                global.tipShow(str)
-                setTimeout(function () {
+                if (str) {
+                    var global = Global
+                    global.tipShow(str)
+                    setTimeout(function () {
+                        history.back()
+                    }, 1000)
+                } else {
                     history.back()
-                }, 1000)
+                }
             },
             toSpaPage: function (pageName) { // 跳转回SPA页面
                 Global.toSpaPage(pageName)

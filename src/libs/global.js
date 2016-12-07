@@ -154,6 +154,6 @@ exports.Global = {
 
     toSpaPage: function (pageName) { // 跳转回SPA页面
         var loc = location
-        loc.href = loc.origin + '/spa-manager/spa2/?club=' + this.clubId + '#' + pageName
+        loc.href = loc.origin + '/spa-manager/spa2/' + (this.clubId ? ('?club=' + this.clubId) : '') + '#' + pageName
     }
 }
